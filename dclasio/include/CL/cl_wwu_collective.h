@@ -105,7 +105,7 @@ clEnqueueWriteBuffersWWU(
         const void *       /* ptr */,
         cl_uint            /* num_events_in_wait_list */,
         const cl_event *   /* event_wait_list */,
-        cl_event *         /* event */) CL_EXT_SUFFIX__VERSION_1_1;
+        cl_event *         /* event */) CL_API_SUFFIX__VERSION_1_1;
 
 /**
  * @brief Broadcasts a buffer to a set of buffers.
@@ -140,7 +140,7 @@ clEnqueueBroadcastBufferWWU(
         size_t             /* cb */,
         cl_uint            /* num_events_in_wait_list */,
         const cl_event *   /* event_wait_list */,
-        cl_event *         /* event */) CL_EXT_SUFFIX__VERSION_1_1;
+        cl_event *         /* event */) CL_API_SUFFIX__VERSION_1_1;
 
 /**
  * @brief Reduces a set of buffers into a single buffer
@@ -179,7 +179,7 @@ clEnqueueReduceBufferWWU(
 //        cl_reduce_operator_WWU /* operator */,
         cl_uint             /* num_events_in_wait_list */,
         const cl_event *    /* event_wait_list */,
-        cl_event *          /* event */) CL_EXT_SUFFIX__VERSION_1_1;
+        cl_event *          /* event */) CL_API_SUFFIX__VERSION_1_1;
 
 /*
  * Not all collectives known from MPI are reasonable in OpenCL, because memory

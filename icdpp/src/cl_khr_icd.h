@@ -58,6 +58,12 @@
 //#include <CL/cl_d3d10.h>
 #endif
 
+#if defined(CL_EXT_SUFFIX__VERSION_1_0_DEPRECATED) && !defined(CL_API_SUFFIX__VERSION_1_0_DEPRECATED)
+    // This is necessary to keep compatibility with old OpenCL header versions,
+    // which don't have https://github.com/KhronosGroup/OpenCL-Headers/pull/158
+    #define CL_API_SUFFIX__VERSION_1_0_DEPRECATED CL_EXT_SUFFIX__VERSION_1_0_DEPRECATED
+#endif
+
 #include <stddef.h>
 
 #ifdef __cplusplus
@@ -165,7 +171,7 @@ struct _cl_icd_dispatch
             cl_command_queue                /* command_queue */,
             cl_command_queue_properties     /* properties */,
             cl_bool                         /* enable */,
-            cl_command_queue_properties *   /* old_properties */) CL_EXT_SUFFIX__VERSION_1_0_DEPRECATED;
+            cl_command_queue_properties *   /* old_properties */) CL_API_SUFFIX__VERSION_1_0_DEPRECATED;
 
     /* Memory Object APIs */
     CL_API_ENTRY cl_mem (CL_API_CALL *clCreateBuffer)(

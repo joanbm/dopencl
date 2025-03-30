@@ -161,7 +161,7 @@ clCreateComputeNodeWWU(
                 cl_int              /* connection_status */,
                 void *              /* user_data */),
         void *          /* user_data */,
-        cl_int *        /* errcode_ret */) CL_EXT_SUFFIX__VERSION_1_1;
+        cl_int *        /* errcode_ret */) CL_API_SUFFIX__VERSION_1_1;
 
 /**
  * @brief Increments a compute node's reference counter.
@@ -171,7 +171,7 @@ clCreateComputeNodeWWU(
  */
 extern CL_API_ENTRY cl_int CL_API_CALL
 clRetainComputeNodeWWU(
-        cl_compute_node_WWU	/* compute_node */) CL_EXT_SUFFIX__VERSION_1_1;
+        cl_compute_node_WWU	/* compute_node */) CL_API_SUFFIX__VERSION_1_1;
 
 /**
  * @brief Decrements a compute node's reference counter, removing the compute node from its platform if the counter becomes 0.
@@ -181,7 +181,7 @@ clRetainComputeNodeWWU(
  */
 extern CL_API_ENTRY cl_int CL_API_CALL
 clReleaseComputeNodeWWU(
-        cl_compute_node_WWU /* compute_node */) CL_EXT_SUFFIX__VERSION_1_1;
+        cl_compute_node_WWU /* compute_node */) CL_API_SUFFIX__VERSION_1_1;
 
 /**
  * @brief Returns a list of compute nodes.
@@ -197,7 +197,7 @@ clGetComputeNodesWWU(
 		cl_platform_id          /* platform */,
 		cl_uint                 /* num_entries */,
 		cl_compute_node_WWU*    /* compute_nodes */,
-		cl_uint *               /* num_compute_nodes */) CL_EXT_SUFFIX__VERSION_1_1;
+		cl_uint *               /* num_compute_nodes */) CL_API_SUFFIX__VERSION_1_1;
 
 /**
  * @brief Returns the specified information on a given compute node.
@@ -208,7 +208,7 @@ clGetComputeNodeInfoWWU(
         cl_compute_node_info_WWU	/* param_name */,
         size_t                      /* param_value_size */,
         void *                      /* param_value */,
-        size_t *                    /* param_value_size_ret */) CL_EXT_SUFFIX__VERSION_1_1;
+        size_t *                    /* param_value_size_ret */) CL_API_SUFFIX__VERSION_1_1;
 
 /* Context APIs */
 
@@ -233,7 +233,7 @@ clGetDeviceIDsFromComputeNodeWWU(
         cl_device_type      /* device_type */,
         cl_uint             /* num_entries */,
         cl_device_id *      /* devices */,
-        cl_uint *           /* num_devices */) CL_EXT_SUFFIX__VERSION_1_1;
+        cl_uint *           /* num_devices */) CL_API_SUFFIX__VERSION_1_1;
 
 /**
  * @brief Allocates devices from the resource manager's device pool.
@@ -262,7 +262,7 @@ clCreateDevicesWWU(
         cl_device_properties_WWU    /* properties */,
         size_t                      /* num_devices */,
         cl_device_id *              /* devices */,
-        size_t                      /* num_device_ret */) CL_EXT_SUFFIX__VERSION_1_1;
+        size_t                      /* num_device_ret */) CL_API_SUFFIX__VERSION_1_1;
 
 /**
  * @brief Increments a device's reference counter.
@@ -273,7 +273,7 @@ clCreateDevicesWWU(
 /* TODO Merge clRetainDeviceWWU with clRetainDevice (OpenCL 1.2) */
 extern CL_API_ENTRY cl_int CL_API_CALL
 clRetainDeviceWWU(
-        cl_device_id /* device */) CL_EXT_SUFFIX__VERSION_1_1;
+        cl_device_id /* device */) CL_API_SUFFIX__VERSION_1_1;
 
 /**
  * @brief Decrements a device's reference counter, removing it from its platform if the counter becomes 0.
@@ -287,7 +287,7 @@ clRetainDeviceWWU(
 /* TODO Merge clRetainDeviceWWU with clRetainDevice (OpenCL 1.2) */
 extern CL_API_ENTRY cl_int CL_API_CALL
 clReleaseDeviceWWU(
-        cl_device_id /* device */) CL_EXT_SUFFIX__VERSION_1_1;
+        cl_device_id /* device */) CL_API_SUFFIX__VERSION_1_1;
 
 /******************************************************************************/
 
