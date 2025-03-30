@@ -53,9 +53,11 @@
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/random_generator.hpp>
 #include <boost/functional/hash.hpp>
+#include <boost/version.hpp>
 
 #include <cstdint>
 
+#if BOOST_VERSION < 108600
 namespace std {
 
 template<>
@@ -66,6 +68,7 @@ struct hash<boost::uuids::uuid> {
 };
 
 }  /* namespace std */
+#endif
 
 namespace dcl {
 
