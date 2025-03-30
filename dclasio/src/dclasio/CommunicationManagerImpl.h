@@ -54,7 +54,7 @@
 #include <dcl/CommunicationManager.h>
 #include <dcl/DCLTypes.h>
 
-#include <boost/asio/io_service.hpp>
+#include <boost/asio/io_context.hpp>
 
 #include <boost/asio/ip/tcp.hpp>
 
@@ -201,7 +201,7 @@ protected:
     CommunicationManagerImpl& operator=(
             const CommunicationManagerImpl&) = delete;
 
-    boost::asio::io_service _io_service;
+    boost::asio::io_context _io_context;
     dcl::process_id _pid; //!< local process ID
     comm::MessageDispatcher _messageDispatcher;
     comm::DataDispatcher _dataDispatcher;

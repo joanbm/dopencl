@@ -55,7 +55,7 @@
 
 #include <dcl/util/Logger.h>
 
-#include <boost/asio/io_service.hpp>
+#include <boost/asio/io_context.hpp>
 #include <boost/asio/read.hpp>
 #include <boost/asio/write.hpp>
 
@@ -74,7 +74,7 @@ namespace dclasio {
 namespace comm {
 
 MessageDispatcher::MessageDispatcher(
-        dcl::process_id pid) : _work(_io_service), _pid(pid) {
+        dcl::process_id pid) : _work(boost::asio::make_work_guard(_io_context)), _pid(pid) {
 }
 
 MessageDispatcher::~MessageDispatcher() {
@@ -84,7 +84,7 @@ MessageDispatcher::~MessageDispatcher() {
 message_queue * MessageDispatcher::create_message_queue(
         const endpoint_type& endpoint) {
     // create socket
-    auto socket(std::make_shared<boost::asio::ip::tcp::socket>(_io_service));
+    auto socket(std::make_shared<boost::asio::ip::tcp::socket>(_io_context));
     return add_message_queue(new message_queue(socket, endpoint));
 }
 
@@ -121,7 +121,7 @@ void MessageDispatcher::remove_message_listener(
 
 void MessageDispatcher::bind(const endpoint_type& endpoint) {
     // create server socket
-    _acceptor.reset(new boost::asio::ip::tcp::acceptor(_io_service));
+    _acceptor.reset(new boost::asio::ip::tcp::acceptor(_io_context));
     _acceptor->open(boost::asio::ip::tcp::v4());
     _acceptor->set_option(boost::asio::ip::tcp::acceptor::reuse_address(true));
     _acceptor->bind(endpoint);
@@ -142,17 +142,17 @@ void MessageDispatcher::start() {
     }
 
     /* start worker thread
-     * use lambda to resolve overloaded boost::asio::io_service::run */
-    _worker = std::thread([this](){ _io_service.run(); });
+     * use lambda to resolve overloaded boost::asio::io_context::run */
+    _worker = std::thread([this](){ _io_context.run(); });
 }
 
 void MessageDispatcher::stop() {
-    _io_service.stop();
+    _io_context.stop();
     if (_worker.joinable()) _worker.join();
 }
 
 void MessageDispatcher::start_accept() {
-    auto socket(std::make_shared<boost::asio::ip::tcp::socket>(_io_service));
+    auto socket(std::make_shared<boost::asio::ip::tcp::socket>(_io_context));
     // await incoming message queue connection
     _acceptor->async_accept(*socket,
             [this, socket](const boost::system::error_code& ec){

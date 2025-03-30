@@ -79,7 +79,7 @@
 #include <CL/cl_wwu_dcl.h>
 #endif
 
-#include <boost/asio/io_service.hpp>
+#include <boost/asio/io_context.hpp>
 
 #include <algorithm>
 #include <cassert>

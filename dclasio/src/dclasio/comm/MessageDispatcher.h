@@ -50,7 +50,8 @@
 #include <dcl/ByteBuffer.h>
 #include <dcl/DCLTypes.h>
 
-#include <boost/asio/io_service.hpp>
+#include <boost/asio/io_context.hpp>
+#include <boost/asio/executor_work_guard.hpp>
 
 #include <boost/asio/ip/tcp.hpp>
 
@@ -156,8 +157,8 @@ private:
         return _message_queues.back().get();
     }
 
-    boost::asio::io_service _io_service;
-    boost::asio::io_service::work _work; //!< work flag for I/O service
+    boost::asio::io_context _io_context;
+    boost::asio::executor_work_guard<boost::asio::io_context::executor_type> _work; //!< work flag for I/O service
     std::unique_ptr<boost::asio::ip::tcp::acceptor> _acceptor; //!< server socket
 
     dcl::process_id _pid;

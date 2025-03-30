@@ -128,11 +128,11 @@ void CommunicationManagerImpl::bind(
     }
 
     // resolve local endpoint
-    boost::asio::ip::tcp::resolver resolver(_io_service);
-    boost::asio::ip::tcp::resolver::query query(boost::asio::ip::tcp::v4(), host, std::to_string(port));
-    boost::asio::ip::tcp::resolver::iterator iterator = resolver.resolve(query);
+    boost::asio::ip::tcp::resolver resolver(_io_context);
+    boost::asio::ip::tcp::resolver::results_type endpoints = resolver.resolve(
+        boost::asio::ip::tcp::v4(), host, std::to_string(port));
 
-    endpoint_type message_endpoint = *iterator;
+    endpoint_type message_endpoint = *endpoints.begin();
     endpoint_type data_endpoint(
             message_endpoint.address(), message_endpoint.port() + 100);
 
@@ -177,9 +177,9 @@ void CommunicationManagerImpl::createComputeNodes(
                     << "Invalid URL '" << url << '\'' << std::endl;
             continue;
         }
-        boost::asio::ip::tcp::resolver resolver(_io_service);
-        boost::asio::ip::tcp::resolver::query query(boost::asio::ip::tcp::v4(), host, std::to_string(port));
-        boost::asio::ip::tcp::resolver::iterator iterator = resolver.resolve(query);
+        boost::asio::ip::tcp::resolver resolver(_io_context);
+        boost::asio::ip::tcp::resolver::results_type endpoints = resolver.resolve(
+                boost::asio::ip::tcp::v4(), host, std::to_string(port));
 
         /* TODO Prevent creation of duplicates
          * Connect message queue to obtain remote process ID and look for this
@@ -187,7 +187,7 @@ void CommunicationManagerImpl::createComputeNodes(
          * Return the existing process, rather than a new one in this case. */
 
         auto computeNode = new ComputeNodeImpl(
-                _messageDispatcher, _dataDispatcher, *iterator);
+                _messageDispatcher, _dataDispatcher, *endpoints.begin());
 
         /* A process does not have a valid process ID before it is connected.
          * Hence, the compute node cannot be added to the list of compute nodes yet. */

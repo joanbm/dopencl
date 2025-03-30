@@ -209,7 +209,7 @@ private:
         }
 
         /* FIXME Return message and report error asynchronously
-        _socket->get_io_service().post([handler, message, ec] () { handler(message, ec); });
+        boost::asio::post(_socket->get_executor(), [handler, message, ec]() { handler(message, ec); });
          */
         handler(message.get(), ec);
     }
